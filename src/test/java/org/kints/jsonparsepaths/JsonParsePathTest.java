@@ -31,7 +31,7 @@ public class JsonParsePathTest {
 
 
     @Test
-    public void testGetJsonPathsList(){
+    public void testGetJsonPathsList() {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         List<String> actual = jsonParsePaths.getJsonPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
@@ -40,7 +40,7 @@ public class JsonParsePathTest {
     }
 
     @Test
-    public void testGetJsonPathsStr(){
+    public void testGetJsonPathsStr() {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         String actual = jsonParsePaths.getJsonPathsStr();
         String expected = "address.city, address.postalCode, address.streetAddress, age, firstName, lastName, " +
@@ -49,7 +49,7 @@ public class JsonParsePathTest {
     }
 
     @Test
-    public void testGetJsonFullPathsList(){
+    public void testGetJsonFullPathsList() {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         List<String> actual = jsonParsePaths.getJsonFullPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
