@@ -1,4 +1,4 @@
-package org.kints.jsonparsepaths;
+package com.github.makintsian.jsonparsepaths;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

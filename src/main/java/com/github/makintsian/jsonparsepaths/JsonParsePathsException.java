@@ -1,4 +1,4 @@
-package org.kints.jsonparsepaths;
+package com.github.makintsian.jsonparsepaths;
 
 public class JsonParsePathsException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package org.kints.jsonparsepaths;
+package com.github.makintsian.jsonparsepaths;
 
 import org.junit.Assert;
 import org.junit.Test;
