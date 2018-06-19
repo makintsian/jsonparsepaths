@@ -51,30 +51,48 @@ public class JsonParsePaths {
         this.jsonPathsList = removeDuplicates(paths);
     }
 
+    /**
+     * @return String with json paths
+     */
     public String getJsonPathsStr() {
         return jsonPathsStr;
     }
 
+    /**
+     * @return List with json paths
+     */
     public List<String> getJsonPathsList() {
         return jsonPathsList;
     }
 
+    /**
+     * @return List with full json paths
+     */
     public List<String> getJsonFullPathsList() {
         return fullPaths;
     }
 
+    /**
+     * @param json String
+     */
     private void parseJson(String json) {
         JsonElement jsonTree = parser.parse(json);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("Json is not valid");
         writeAndSortJson(jsonTree);
     }
 
+    /**
+     * @param fileReader FileReader
+     */
     private void parseJson(FileReader fileReader) {
         JsonElement jsonTree = parser.parse(fileReader);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("File is not valid");
         writeAndSortJson(jsonTree);
     }
 
+    /**
+     * @param jsonTree JsonElement
+     */
     private void writeAndSortJson(JsonElement jsonTree) {
         writeJsonPaths(jsonTree, "");
         writeFullJsonPaths(jsonTree, "");
@@ -82,6 +100,11 @@ public class JsonParsePaths {
         Collections.sort(fullPaths);
     }
 
+    /**
+     * @param elem JsonElement
+     * @param path current json path
+     * @return list with json paths
+     */
     private List<String> writeJsonPaths(JsonElement elem, String path) {
         List<String> jsonPaths = new ArrayList<>();
         if (elem.isJsonObject()) {
@@ -106,6 +129,11 @@ public class JsonParsePaths {
         return jsonPaths;
     }
 
+    /**
+     * @param elem JsonElement
+     * @param path current json path
+     * @return list with full json paths
+     */
     private List<String> writeFullJsonPaths(JsonElement elem, String path) {
         List<String> jsonPaths = new ArrayList<>();
         if (elem.isJsonObject()) {
@@ -131,6 +159,10 @@ public class JsonParsePaths {
         return jsonPaths;
     }
 
+    /**
+     * @param list full list
+     * @return list without duplicates
+     */
     private List<String> removeDuplicates(List<String> list) {
         return list.stream().distinct().collect(Collectors.toList());
     }
