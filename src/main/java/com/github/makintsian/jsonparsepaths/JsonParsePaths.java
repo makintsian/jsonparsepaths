@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -24,6 +25,15 @@ public class JsonParsePaths {
         this.paths = new ArrayList<>();
         this.fullPaths = new ArrayList<>();
         parseJson(json);
+        setJsonPathsStr();
+        setJsonPathsList();
+    }
+
+    public JsonParsePaths(FileReader fileReader) {
+        this.parser = new JsonParser();
+        this.paths = new ArrayList<>();
+        this.fullPaths = new ArrayList<>();
+        parseJson(fileReader);
         setJsonPathsStr();
         setJsonPathsList();
     }
@@ -56,6 +66,15 @@ public class JsonParsePaths {
     private void parseJson(String json) {
         JsonElement jsonTree = parser.parse(json);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("Json is not valid");
+        writeJsonPaths(jsonTree, "");
+        writeFullJsonPaths(jsonTree, "");
+        Collections.sort(paths);
+        Collections.sort(fullPaths);
+    }
+
+    private void parseJson(FileReader fileReader) {
+        JsonElement jsonTree = parser.parse(fileReader);
+        if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("File is not valid");
         writeJsonPaths(jsonTree, "");
         writeFullJsonPaths(jsonTree, "");
         Collections.sort(paths);
