@@ -66,15 +66,16 @@ public class JsonParsePaths {
     private void parseJson(String json) {
         JsonElement jsonTree = parser.parse(json);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("Json is not valid");
-        writeJsonPaths(jsonTree, "");
-        writeFullJsonPaths(jsonTree, "");
-        Collections.sort(paths);
-        Collections.sort(fullPaths);
+        writeAndSortJson(jsonTree);
     }
 
     private void parseJson(FileReader fileReader) {
         JsonElement jsonTree = parser.parse(fileReader);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("File is not valid");
+        writeAndSortJson(jsonTree);
+    }
+
+    private void writeAndSortJson(JsonElement jsonTree) {
         writeJsonPaths(jsonTree, "");
         writeFullJsonPaths(jsonTree, "");
         Collections.sort(paths);
