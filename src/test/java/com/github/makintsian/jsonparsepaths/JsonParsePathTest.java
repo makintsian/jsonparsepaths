@@ -22,7 +22,8 @@ public class JsonParsePathTest {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         List<String> actual = jsonParsePaths.getJsonPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
-                "firstName", "lastName", "phoneNumbers[*].number", "phoneNumbers[*].type");
+                "devices[*]", "firstName", "languages[*]", "lastName", "phoneNumbers[*].number",
+                "phoneNumbers[*].type");
         Assert.assertEquals(expected, actual);
     }
 
@@ -31,8 +32,8 @@ public class JsonParsePathTest {
         String json = new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         String actual = jsonParsePaths.getJsonPathsStr();
-        String expected = "address.city, address.postalCode, address.streetAddress, age, firstName, lastName, " +
-                "phoneNumbers[*].number, phoneNumbers[*].type";
+        String expected = "address.city, address.postalCode, address.streetAddress, age, devices[*], firstName, " +
+                "languages[*], lastName, phoneNumbers[*].number, phoneNumbers[*].type";
         Assert.assertEquals(expected, actual);
     }
 
@@ -42,8 +43,8 @@ public class JsonParsePathTest {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(json);
         List<String> actual = jsonParsePaths.getJsonFullPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
-                "firstName", "lastName", "phoneNumbers[0].number", "phoneNumbers[0].type", "phoneNumbers[1].number",
-                "phoneNumbers[1].type");
+                "devices[]", "firstName", "languages[0]", "languages[1]", "lastName", "phoneNumbers[0].number",
+                "phoneNumbers[0].type", "phoneNumbers[1].number", "phoneNumbers[1].type");
         Assert.assertEquals(expected, actual);
     }
 
@@ -53,7 +54,8 @@ public class JsonParsePathTest {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(fileReader);
         List<String> actual = jsonParsePaths.getJsonPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
-                "firstName", "lastName", "phoneNumbers[*].number", "phoneNumbers[*].type");
+                "devices[*]", "firstName", "languages[*]", "lastName", "phoneNumbers[*].number",
+                "phoneNumbers[*].type");
         Assert.assertEquals(expected, actual);
     }
 
@@ -62,8 +64,8 @@ public class JsonParsePathTest {
         FileReader fileReader = new FileReader(filePath);
         JsonParsePaths jsonParsePaths = new JsonParsePaths(fileReader);
         String actual = jsonParsePaths.getJsonPathsStr();
-        String expected = "address.city, address.postalCode, address.streetAddress, age, firstName, lastName, " +
-                "phoneNumbers[*].number, phoneNumbers[*].type";
+        String expected = "address.city, address.postalCode, address.streetAddress, age, devices[*], firstName, " +
+                "languages[*], lastName, phoneNumbers[*].number, phoneNumbers[*].type";
         Assert.assertEquals(expected, actual);
     }
 
@@ -73,8 +75,8 @@ public class JsonParsePathTest {
         JsonParsePaths jsonParsePaths = new JsonParsePaths(fileReader);
         List<String> actual = jsonParsePaths.getJsonFullPathsList();
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
-                "firstName", "lastName", "phoneNumbers[0].number", "phoneNumbers[0].type", "phoneNumbers[1].number",
-                "phoneNumbers[1].type");
+                "devices[]", "firstName", "languages[0]", "languages[1]", "lastName", "phoneNumbers[0].number",
+                "phoneNumbers[0].type", "phoneNumbers[1].number", "phoneNumbers[1].type");
         Assert.assertEquals(expected, actual);
     }
 }
