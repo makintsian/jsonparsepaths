@@ -4,7 +4,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.makintsian/jsonparsepaths/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.makintsian/jsonparsepaths/)
 [![GitHub release](https://img.shields.io/github/release/makintsian/jsonparsepaths.svg)](https://github.com/makintsian/jsonparsepaths/releases)
 
-_A application parses json for gets paths._
+_An application parses json for gets paths_
 
 ## Download
 
@@ -13,11 +13,11 @@ _A application parses json for gets paths._
 <dependency>
     <groupId>com.github.makintsian</groupId>
     <artifactId>jsonparsepaths</artifactId>
-    <version>0.9.3</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```groovy
-compile group: 'com.github.makintsian', name: 'jsonparsepaths', version: '0.9.3'
+compile group: 'com.github.makintsian', name: 'jsonparsepaths', version: '1.0.0'
 ```

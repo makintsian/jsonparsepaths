@@ -18,7 +18,6 @@ public class JsonParsePaths {
     private List<String> fullPaths;
     private String jsonPathsStr;
     private List<String> jsonPathsList;
-    private int number = 0;
 
     public JsonParsePaths(String json) {
         this.parser = new JsonParser();
@@ -121,7 +120,8 @@ public class JsonParsePaths {
             });
         } else if (elem.isJsonArray()) {
             JsonArray jsonArray = elem.getAsJsonArray();
-            jsonArray.forEach(e -> {
+            if (jsonArray.size() == 0) paths.add(path + "[*]");
+            else jsonArray.forEach(e -> {
                 if (e.isJsonArray() || e.isJsonObject()) writeJsonPaths(e, path + "[*]");
                 else paths.add(path + "[*]");
             });
@@ -149,11 +149,13 @@ public class JsonParsePaths {
                 }
             });
         } else if (elem.isJsonArray()) {
+            final int[] number = {0};
             JsonArray jsonArray = elem.getAsJsonArray();
-            jsonArray.forEach(e -> {
-                if (e.isJsonArray() || e.isJsonObject()) writeFullJsonPaths(e, path + "[" + number + "]");
-                else fullPaths.add(path + "[" + number + "]");
-                number++;
+            if (jsonArray.size() == 0) fullPaths.add(path + "[]");
+            else jsonArray.forEach(e -> {
+                if (e.isJsonArray() || e.isJsonObject()) writeFullJsonPaths(e, path + "[" + number[0] + "]");
+                else fullPaths.add(path + "[" + number[0] + "]");
+                number[0]++;
             });
         }
         return jsonPaths;
