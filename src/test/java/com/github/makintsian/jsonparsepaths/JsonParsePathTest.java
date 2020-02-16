@@ -1,7 +1,7 @@
 package com.github.makintsian.jsonparsepaths;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,7 +23,7 @@ public class JsonParsePathTest {
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
                 "devices[*]", "firstName", "languages[*]", "lastName", "phoneNumbers[*].number",
                 "phoneNumbers[*].type", "tax");
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class JsonParsePathTest {
         String actual = jsonParsePaths.getJsonPathsStr();
         String expected = "address.city, address.postalCode, address.streetAddress, age, devices[*], firstName, " +
                 "languages[*], lastName, phoneNumbers[*].number, phoneNumbers[*].type, tax";
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class JsonParsePathTest {
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
                 "devices[]", "firstName", "languages[0]", "languages[1]", "lastName", "phoneNumbers[0].number",
                 "phoneNumbers[0].type", "phoneNumbers[1].number", "phoneNumbers[1].type", "tax");
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class JsonParsePathTest {
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
                 "devices[*]", "firstName", "languages[*]", "lastName", "phoneNumbers[*].number",
                 "phoneNumbers[*].type", "tax");
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -65,7 +65,7 @@ public class JsonParsePathTest {
         String actual = jsonParsePaths.getJsonPathsStr();
         String expected = "address.city, address.postalCode, address.streetAddress, age, devices[*], firstName, " +
                 "languages[*], lastName, phoneNumbers[*].number, phoneNumbers[*].type, tax";
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -76,6 +76,6 @@ public class JsonParsePathTest {
         List<String> expected = Arrays.asList("address.city", "address.postalCode", "address.streetAddress", "age",
                 "devices[]", "firstName", "languages[0]", "languages[1]", "lastName", "phoneNumbers[0].number",
                 "phoneNumbers[0].type", "phoneNumbers[1].number", "phoneNumbers[1].type", "tax");
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 }
