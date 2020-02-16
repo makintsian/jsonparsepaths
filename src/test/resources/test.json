@@ -7,8 +7,8 @@
     "city": "Nara",
     "postalCode": "630-0192"
   },
-  "devices": [
-  ],
+  "devices": [],
+  "tax": {},
   "languages": [
     "uk",
     "ru"
