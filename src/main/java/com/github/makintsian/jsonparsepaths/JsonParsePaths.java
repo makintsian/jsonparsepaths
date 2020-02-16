@@ -13,55 +13,42 @@ import java.util.stream.Collectors;
 
 public class JsonParsePaths {
 
-    private JsonParser parser;
     private List<String> paths;
     private List<String> fullPaths;
-    private String jsonPathsStr;
-    private List<String> jsonPathsList;
 
     public JsonParsePaths(String json) {
-        this.parser = new JsonParser();
         this.paths = new ArrayList<>();
         this.fullPaths = new ArrayList<>();
         parseJson(json);
-        setJsonPathsStr();
-        setJsonPathsList();
     }
 
     public JsonParsePaths(FileReader fileReader) {
-        this.parser = new JsonParser();
         this.paths = new ArrayList<>();
         this.fullPaths = new ArrayList<>();
         parseJson(fileReader);
-        setJsonPathsStr();
-        setJsonPathsList();
     }
 
-    private void setJsonPathsStr() {
+    private String jsonPathsToStr() {
         StringBuilder stringBuilder = new StringBuilder();
         removeDuplicates(paths).forEach(path -> {
             if (stringBuilder.length() != 0) stringBuilder.append(", ");
             stringBuilder.append(path);
         });
-        this.jsonPathsStr = stringBuilder.toString();
-    }
-
-    private void setJsonPathsList() {
-        this.jsonPathsList = removeDuplicates(paths);
+        return stringBuilder.toString();
     }
 
     /**
      * @return String with json paths
      */
     public String getJsonPathsStr() {
-        return jsonPathsStr;
+        return jsonPathsToStr();
     }
 
     /**
      * @return List with json paths
      */
     public List<String> getJsonPathsList() {
-        return jsonPathsList;
+        return removeDuplicates(paths);
     }
 
     /**
@@ -75,7 +62,7 @@ public class JsonParsePaths {
      * @param json String
      */
     private void parseJson(String json) {
-        JsonElement jsonTree = parser.parse(json);
+        JsonElement jsonTree = JsonParser.parseString(json);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("Json is not valid");
         writeAndSortJson(jsonTree);
     }
@@ -84,7 +71,7 @@ public class JsonParsePaths {
      * @param fileReader FileReader
      */
     private void parseJson(FileReader fileReader) {
-        JsonElement jsonTree = parser.parse(fileReader);
+        JsonElement jsonTree = JsonParser.parseReader(fileReader);
         if (!jsonTree.isJsonObject() && !jsonTree.isJsonArray()) throw new JsonParsePathsException("File is not valid");
         writeAndSortJson(jsonTree);
     }
@@ -110,7 +97,8 @@ public class JsonParsePaths {
             JsonObject jsonObject = elem.getAsJsonObject();
             jsonObject.keySet().forEach(s -> {
                 JsonElement jsonElement = jsonObject.get(s);
-                if (jsonElement.isJsonPrimitive() || jsonElement.isJsonNull()) {
+                if (jsonElement.isJsonPrimitive() || jsonElement.isJsonNull()
+                        || (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().keySet().isEmpty())) {
                     if (path.isEmpty()) paths.add(path + s);
                     else paths.add(path + "." + s);
                 } else {
@@ -140,7 +128,8 @@ public class JsonParsePaths {
             JsonObject jsonObject = elem.getAsJsonObject();
             jsonObject.keySet().forEach(s -> {
                 JsonElement jsonElement = jsonObject.get(s);
-                if (jsonElement.isJsonPrimitive() || jsonElement.isJsonNull()) {
+                if (jsonElement.isJsonPrimitive() || jsonElement.isJsonNull()
+                        || (jsonElement.isJsonObject() && jsonElement.getAsJsonObject().keySet().isEmpty())) {
                     if (path.isEmpty()) fullPaths.add(path + s);
                     else fullPaths.add(path + "." + s);
                 } else {
